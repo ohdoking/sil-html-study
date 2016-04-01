@@ -11,6 +11,7 @@ nav #navigation{
 }
 
 nav .navigation-list{
+  position: absolute;
   opacity: 0;
   border: 1px solid #dadaa3;
   width: 100px;
@@ -21,11 +22,11 @@ nav .navigation-list{
   max-width: 0;
   left: 0;
   display: block;
-  margin-top: -3.25rem;
+  margin-top: -9rem;
   padding: .75rem .75rem .75rem 0;
 }
 
-nav .current-navigation:hover+.navigation-list{
+nav #current-navigation:hover+.navigation-list{
   max-width: 300%;
   max-height: 23.125rem;
   margin-top: 0;
