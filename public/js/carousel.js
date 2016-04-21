@@ -37,14 +37,11 @@ $.fn.carousel = function(value) {
     $prev.click(function() {
         //get the right position
         var left_indent = parseInt($ul.css('left')) + item_width;
-        $ul.animate({ 'left': left_indent }, 200, function() {
+        $ul.animate({ 'left': left_indent }, 400, function() {
             $(self).find('.carousel-list li:first').before($(self).find('.carousel-list li:last'));
             $ul.css({ 'left': left_value });
-
-        });/*
-        rotate($next,run,speed);*/
+        });
         return false;
-
     });
 
 
@@ -52,13 +49,11 @@ $.fn.carousel = function(value) {
     $next.click(function() {
         //get the right position
         var left_indent = parseInt($ul.css('left')) - item_width;
-        $ul.animate({ 'left': left_indent }, 200, function() {
+        $ul.animate({ 'left': left_indent }, 400, function() {
             $(self).find('.carousel-list li:last').after($(self).find('.carousel-list li:first'));
             $ul.css({ 'left': left_value });
-        });/*
-        rotate($next,run,speed);*/
+        });
         return false;
-
     });
 
     //if mouse hover, pause the auto rotation, otherwise rotate it

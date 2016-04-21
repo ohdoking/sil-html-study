@@ -26,6 +26,6 @@
 ## Day3
 
 1. Carousel 구현
-
+  * 참고 : http://www.queness.com/post/923/create-a-simple-infinite-carousel-with-jquery
 
 
