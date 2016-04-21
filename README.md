@@ -16,5 +16,16 @@
 > ![장애환경 인포그래픽](public/img/sad_environment.png)
 
 
+## Day2
+
+1. Tab css만으로 구현
+  * 1,2은 같은 markup으로
+2. Tab jquery만으로 구현
+
+
+## Day3
+
+1. Carousel 구현
+
 
 

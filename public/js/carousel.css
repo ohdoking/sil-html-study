@@ -1,0 +1,9 @@
+$( document ).ready(function() {
+  $.carousel("test");
+});
+
+$.fn.carousel = function(var){
+  var self = this,
+  console.log(var)
+  return self;
+}
