@@ -1,0 +1,171 @@
+<html>
+<head>
+  <title>carousel</title>
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+  <style type="text/css">
+    li, ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: block;
+    }
+
+    .carousel {
+      position: relative;
+
+      background-color: rgba(200,200,200, .4);
+      width: 800px;
+      height: 600px;
+    }
+
+    .carousel .carousel-list {
+      position: relative;
+      overflow: hidden;
+    }
+
+
+    .carousel .carousel-list ul {
+      transition: transform .3s;
+    }
+
+    .carousel .carousel-list ul:after {
+      content: "";
+      display: block;
+      clear: left;
+      height: 0;
+    }
+
+    .carousel .carousel-list ul > li {
+      display: block;
+      float: left;
+      height: 100%;
+      overflow: hidden;
+    }
+
+
+    .carousel .carousel-list img {
+      display: block;
+      width: 100%;
+    }
+
+
+    .carousel .button {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 50%;
+    }
+
+    .carousel .button.next {
+      right: 0;
+      background:url(../img/play.png) no-repeat;
+    }
+
+    .carousel .button.prev {
+      background:url(../img/play.png) no-repeat;
+      left: 0;
+    }
+
+
+  </style>
+
+</head>
+<body>
+
+  <div class="carousel">
+    <div class="carousel-list">
+      <ul>
+        <li>
+          <img src="img/2.jpg"/>
+        </li>
+        <li>
+          <img src="img/1.jpg"/>
+        </li>
+        <li>
+          <img src="img/3.jpg"/>
+        </li>
+      </ul>
+    </div>
+
+    <a href="#" class="prev button"></a>
+    <a href="#" class="next button"></a>
+    <div class="paging"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    
+    $.fn.carousel = function(option) {
+      
+      // option = $.extend({
+      //   width: null,
+      // }, option);
+
+      return this.each(function() {
+
+        var $el = $(this);
+        var $wrap = $el.children('.carousel-list');
+        var $list = $wrap.children('ul');
+        var $item = $list.children('li');
+        var $nextButton = $el.find('.next');
+        var $prevButton = $el.find('.prev');
+        var $paging = $el.find('.paging');
+
+        var length = $item.length;
+        var index = 0;
+
+        $list.width(100 * length + '%');
+        $item.width(100 / length + '%');
+
+        function animate(direction) {
+          if (direction == 'next') {
+            index = ++index % length;
+          }
+
+          if (direction == 'prev') {
+            index = --index % length;
+            if(index == -1){
+              index = 2;
+            }
+          }
+
+          console.log(index)
+
+          $list.css('transform', 'translateX(-'+ index * 100 / length +'%)');
+
+        }
+
+        $nextButton.on('click', function(event) {
+          animate('next');
+          event.preventDefault();
+        });
+
+        $prevButton.on('click', function(event) {
+          animate('prev');
+          event.preventDefault();
+        });
+
+
+        $list.on('transitionend', function(event) {
+          if (index + 1 === length) {
+
+          }
+        });
+
+        // console.log(this);
+
+      });
+    };
+
+    var $carousel = $('.carousel').carousel({
+      width: 200
+    });
+
+    console.log($carousel);
+
+  </script>
+
+</body>
+</html>
