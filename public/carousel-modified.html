@@ -17,7 +17,7 @@
 
       background-color: rgba(200,200,200, .4);
       width: 800px;
-      height: 600px;
+      height: 450px;
     }
 
     .carousel .carousel-list {
@@ -133,26 +133,43 @@
 
           console.log(index)
 
-          $list.css('transform', 'translateX(-'+ index * 100 / length +'%)');
+          if(index === length){
+            console.log("!!")
+            $list.css("transition", "all 0s ease-out");
+            $list.css('transform', 'translateX(33.333333%)');
+          }
+          else if(index === 0){
+            console.log("!!!")
+            $list.css("transition", "all 0s ease-out");
+            $list.css('transform', 'translateX(133.333333%)');
+          }
+          else{
+            $list.css("transition", "all 0.5s ease-out");
+            $list.css('transform', 'translateX(-'+ index * 100 / length +'%)');
+          }
+         
 
         }
 
         $nextButton.on('click', function(event) {
           animate('next');
+          
           event.preventDefault();
         });
 
         $prevButton.on('click', function(event) {
           animate('prev');
+        
           event.preventDefault();
         });
 
 
-        $list.on('transitionend', function(event) {
+       /* $list.on('transitionend', function(event) {
           if (index + 1 === length) {
-
+            $list.css("transition", "all 0s ease-out");
+            $list.css('transform', 'translateX(33.333333%)');
           }
-        });
+        });*/
 
         // console.log(this);
 
