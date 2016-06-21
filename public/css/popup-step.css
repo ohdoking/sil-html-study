@@ -1,10 +1,10 @@
 .ui-popup-screen{
-	top: 0;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     position: absolute;
-    z-index: 1099;
+    z-index: 0;
 }
 .ui-popup-screen.in{
     opacity: 0.5;
@@ -15,12 +15,12 @@
 }
 
 .ui-overlay-shadow{
-	-webkit-box-shadow: 0 0 12px rgba(0,0,0,.6);
+    -webkit-box-shadow: 0 0 12px rgba(0,0,0,.6);
     -moz-box-shadow: 0 0 12px rgba(0,0,0,.6);
     box-shadow: 0 0 12px rgba(0,0,0,.6);
 }
 .ui-popup-container{
-	max-width: 1200px;
+    max-width: 1200px;
     z-index: 1100;
     display: inline-block;
     position: absolute;
@@ -31,8 +31,8 @@
 }
 
 .ui-header{
-	width: 100%;
-	height: 50px;
+    width: 100%;
+    height: 50px;
     border-bottom: .1px solid #808080;
     font-size: 2rem;
     padding: 5px;
@@ -41,18 +41,18 @@
 }
 
 .ui-corner-all{
-	border-radius: 5px;
+    border-radius: 5px;
 }
 
 .ui-content{
-	width: 100%;
-	font-size: 1.5rem;
-	padding: 10px;
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 10px;
 }
 
 .ui-footer{
-	position: absolute;
-	bottom: 0;
+    position: absolute;
+    bottom: 0;
 }
 
 /* button */
@@ -70,10 +70,10 @@
 }
 
 .ui-btn-cancel{
-	background-color: #CA255A;
+    background-color: #CA255A;
 }
 
-.popup{
+/* .popup{
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
@@ -82,4 +82,7 @@
 .popup.active{
     visibility: visible;
     opacity: 1;
+} */
+.disappear{
+    display : none;
 }

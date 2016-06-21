@@ -92,11 +92,15 @@ $.fn.popup = function(action, options) {
 
       $this.before(elem.$dialogBackground);
 
+      elem.$dialogBackground.css('z-index',(options.pages.length * 2) - 2)
       for(var i = 0 ; i < options.pages.length ; i++){
         console.log(options.pages[i]);
 
+        var index = ((options.pages.length-i) * 2) - 1;
+
+        //매번 생성해주기위해 객체를 for 문 내부에 넣음
         var obj = {
-          "$dialog": $('<div class="popup ui-popup-container pop in in ui-popup-active"></div>'),
+          "$dialog": $('<div class="popup ui-popup-container pop in in ui-popup-active" data-index = '+ index +'></div>'),
           "$dialogBody": $('<div role="popup" class="popupDialog ui-popup ui-body-b ui-corner-all">'),
           "$dialogHeader": $('<div role="heading" class="ui-header"><h1 class="ui-title" class="popup-header"></h1></div>'),
           "$dialogContent": $('<div role="main" class="ui-content"><p class="popup-content"></p></div>'),
@@ -110,6 +114,7 @@ $.fn.popup = function(action, options) {
 
         obj.$dialog.css("width", options.width);
         obj.$dialog.css("height", options.height);
+        obj.$dialog.css("z-index", index);
         //가운대 정렬
 
         obj.$dialog.css("left", (elem.$container.width() - options.width) / 2);
@@ -130,7 +135,41 @@ $.fn.popup = function(action, options) {
         obj.$dialogHeader.text(options.pages[i].title);
         obj.$dialogContent.text(options.pages[i].content);
 
+        // drag event
+        obj.$dialogHeader.mousedown(function(event) {
+          // $(this).parents('.ui-popup-container').css('position','absolute')
+          $(this).parents('.ui-popup-container').css('left',event.pageX - event.offsetX)
+          $(this).parents('.ui-popup-container').css('top',event.pageY - event.offsetY)
 
+          var start_x = 0;
+          var start_y = 0;
+
+          console.log(start_x,start_y)
+          $(this).mousemove(function( event ) {
+
+            if( start_x !=0){
+              // 이전 위치에서 현재위치로 마우스가 이동한만큼 부모를 움직여줌
+              $(this).parents('.ui-popup-container').css('left',(event.pageX - event.offsetX) - (start_x - event.pageX))
+              $(this).parents('.ui-popup-container').css('top',(event.pageY - event.offsetY) - (start_y - event.pageY))
+            }
+
+            start_x = event.pageX;
+            start_y = event.pageY;
+          });
+
+          //mouseup 시에 mousemove event off
+          $(this).one('mouseup', function() {
+            $(this).off("mousemove");
+            console.log("!!!")
+          });
+
+          return false;
+
+
+        });
+
+
+        // button 위치
         if( i == options.pages.length - 1){
 
            /* button event 등록 */
@@ -158,13 +197,15 @@ $.fn.popup = function(action, options) {
         }
         else if(i == 0){
 
-          obj.$dialog.addClass('active');
 
           obj.$dialogNextButton.on("click", function() {
 
             var $parentThis = $(this).parents('.ui-popup-container');
-            $parentThis.removeClass('active');
-            $parentThis.next().addClass('active');
+            var parentzIndex = $parentThis.css('z-index');
+            console.log(parentzIndex)
+            $parentThis.css('z-index',-(parentzIndex));
+
+            elem.$dialogBackground.css('z-index',parentzIndex-2);
           });
 
           obj.$dialogFooter.append(obj.$dialogNextButton);
@@ -175,17 +216,23 @@ $.fn.popup = function(action, options) {
           obj.$dialogPrevButton.on("click", function() {
 
             var $parentThis = $(this).parents('.ui-popup-container');
+            var parentzIndex = $parentThis.prev().css('z-index');
 
-            $parentThis.removeClass('active');
-            $parentThis.prev().addClass('active');
+            $parentThis.prev().css('z-index',-(parentzIndex));
+            elem.$dialogBackground.css('z-index',parentzIndex+2);
+
 
           });
 
           obj.$dialogNextButton.on("click", function() {
 
             var $parentThis = $(this).parents('.ui-popup-container');
-            $parentThis.Class('active');
-            $parentThis.next().removeClass('active');
+            var parentzIndex = $parentThis.css('z-index');
+            console.log(parentzIndex)
+            $parentThis.css('z-index',-(parentzIndex));
+            elem.$dialogBackground.css('z-index',parentzIndex-2);
+
+
           });
 
           obj.$dialogFooter.append(obj.$dialogPrevButton);
@@ -207,5 +254,8 @@ $.fn.popup = function(action, options) {
     $this.removeAttr('class style');
     $this.addClass('popupList');
   }
+
+
+
 
 }
